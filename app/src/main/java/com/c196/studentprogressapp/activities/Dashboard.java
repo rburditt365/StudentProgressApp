@@ -1,4 +1,4 @@
-package com.c196.studentprogressapp;
+package com.c196.studentprogressapp.activities;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,13 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.c196.studentprogressapp.activities.TermsList;
-
-import java.util.Calendar;
+import com.c196.studentprogressapp.R;
+import com.c196.studentprogressapp.database.Repository;
+import com.c196.studentprogressapp.entity.Term;
 
 public class Dashboard extends AppCompatActivity {
 
-    Button termsbutton;
+    Button termsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +27,21 @@ public class Dashboard extends AppCompatActivity {
             actionBar.setTitle("Student Dashboard");
         }
 
-        termsbutton = findViewById(R.id.termsbutton);
-        termsbutton.setOnClickListener(new View.OnClickListener(){
+        termsButton = findViewById(R.id.termsButton);
+        termsButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 Intent intent = new Intent(Dashboard.this, TermsList.class);
                 startActivity(intent);
             }
         });
+
+        start();
+    }
+
+    public void start(){
+        Repository repo = new Repository(getApplication());
+        Term term1 = new Term(1, "Awesome Term 1");
+        repo.insert(term1);
     }
 }
